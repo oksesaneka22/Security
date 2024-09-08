@@ -15,6 +15,7 @@ sc config lanmanserver start= auto
 sc start lanmanworkstation
 sc start lanmanserver
 
+pause
 
 net user root toor /add
 
